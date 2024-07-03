@@ -1,14 +1,11 @@
 import pytest
-from selenium.webdriver import Chrome, Keys, ChromeOptions
+from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-
 
 
 @pytest.fixture
 def browser():
     driver = Chrome()
-    WebDriverWait(driver, 6)
     yield driver
     driver.quit()
 
@@ -22,7 +19,10 @@ def test_successful_login(browser):
 
     username_name.send_keys("standard_user")
     password_input.send_keys("secret_sauce")
-
     login_button.click()
 
+    assert "https://www.saucedemo.com/inventory.html" in browser.current_url
 
+
+if __name__ == "__main__":
+    pytest.main()
