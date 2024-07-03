@@ -8,7 +8,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 @pytest.fixture
 def browser():
     driver = Chrome()
-    WebDriverWait(driver, 9)
+    WebDriverWait(driver, 6)
     yield driver
     driver.quit()
 
