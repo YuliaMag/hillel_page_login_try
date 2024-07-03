@@ -1,3 +1,5 @@
+import time
+
 import pytest
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
@@ -19,6 +21,7 @@ def test_successful_login(browser):
 
     username_name.send_keys("standard_user")
     password_input.send_keys("secret_sauce")
+    time.sleep(4)
     login_button.click()
 
     assert "https://www.saucedemo.com/inventory.html" in browser.current_url
