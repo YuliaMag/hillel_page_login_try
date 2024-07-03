@@ -8,8 +8,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 @pytest.fixture
 def browser():
     driver = Chrome()
+    WebDriverWait(driver, 9)
     yield driver
-    WebDriverWait(driver, 3)
     driver.quit()
 
 
@@ -24,4 +24,5 @@ def test_successful_login(browser):
     password_input.send_keys("secret_sauce")
 
     login_button.click()
+
 
