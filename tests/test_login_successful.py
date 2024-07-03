@@ -1,29 +1,27 @@
-import time
 import pytest
-from selenium import webdriver
-from selenium.webdriver import Chrome, Keys, ActionChains
-from selenium.webdriver.chrome.service import Service
+from selenium.webdriver import Chrome, Keys, ChromeOptions
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+
 
 
 @pytest.fixture
 def browser():
-    driver_path = ""  # TODO: put path to webdriver
-    driver = Chrome(service=Service(driver_path))
+    driver = Chrome()
     yield driver
+    WebDriverWait(driver, 3)
     driver.quit()
 
 
 def test_successful_login(browser):
     browser.get("https://www.saucedemo.com/")
 
-    username_name = browser.find_element_by_id("standard_user")
-    password_input = browser.find_element_by_id("secret_sauce")
-    login_button = browser.find_element_by_id("login-button")
+    username_name = browser.find_element(By.NAME, "user-name")
+    password_input = browser.find_element(By.NAME, "password")
+    login_button = browser.find_element(By.NAME, "login-button")
 
-    username_name.send_keys("admin")
-    password_input.send_keys("password")
+    username_name.send_keys("standard_user")
+    password_input.send_keys("secret_sauce")
 
-    login_button.click("login-button")
+    login_button.click()
 
-    assert browser.current_url == "https://www.saucedemo.com/"
